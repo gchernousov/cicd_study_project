@@ -1,0 +1,26 @@
+name: django app test
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check repository
+        uses: actions/checkout@v2
+
+      - name: install python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10
+
+      - name: install requirements
+        run: pip install -r requirements.txt
+
+      - name: linting
+        run: flake8 main_app
+
+      - name: test
+        run: python manage.py test
